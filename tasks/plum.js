@@ -26,31 +26,47 @@ var _plumRegression2 = _interopRequireDefault(_plumRegression);
 
 var plum = function plum(grunt) {
 
-  grunt.registerMultiTask('plum', 'Grunt task runner to build and run regressions tests against plum stylesheets.', function () {
-    var src = this.files[0].src;
-    var dest = this.files[0].dest;
+  grunt.registerMultiTask('plum', 'Grunt plugin to build and run visual regression tests against plum stylesheets.', function () {
     var done = this.async();
-    var fixtureOptions = {
-      files: src,
-      destination: '' + dest + '/fixtures'
-    };
-    var regressionOptions = {
-      stylesheets: 'css',
-      tests: src,
-      fixtures: '' + dest + '/fixtures',
-      results: '' + dest + '/results',
-      failures: '' + dest + '/failures'
-    };
+    var options = this.options();
+    var fixtures = '' + options.results + '/fixtures';
+    var failures = '' + options.results + '/failures';
+    var results = '' + options.results + '/results';
+    var tests = (function () {
+      if (grunt.option('tests')) {
+        return grunt.option('tests').split(',');
+      }
+      return options.tests;
+    })().map(function (test) {
+      return '' + options.stylesheets + '/' + test;
+    });
 
-    grunt.file.mkdir(regressionOptions.fixtures);
+    if (grunt.file.exists(options.results)) {
+      grunt.file['delete'](options.results);
+    }
 
-    (0, _plumFixture2['default'])(fixtureOptions, function (err, response) {
-      if (err) grunt.fail.error(err);
+    if (!grunt.file.exists(fixtures)) {
+      grunt.file.mkdir(fixtures);
+    }
 
-      (0, _plumRegression2['default'])(regressionOptions, function (err, resp) {
-        if (err) grunt.fail.error(err);
+    (0, _plumFixture2['default'])({ files: tests, destination: fixtures }, function (err, response) {
+      if (err) {
+        return grunt.fail.error(err);
+      }
 
-        grunt.file['delete'](dest);
+      (0, _plumRegression2['default'])({
+        stylesheets: options.stylesheets,
+        tests: tests,
+        fixtures: fixtures,
+        results: results,
+        failures: failures
+      }, function (err, resp) {
+        if (err) {
+          return grunt.fail.error(err);
+        }
+
+        grunt.file['delete'](fixtures);
+        grunt.file['delete'](results);
         grunt.log.ok(resp);
         done();
       });
