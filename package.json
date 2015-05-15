@@ -1,6 +1,6 @@
 {
   "name": "grunt-plum",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Grunt plugin to build and run visual regression tests against plum stylesheets.",
   "repository": "",
   "author": {
