@@ -10,7 +10,7 @@ import regression from 'plum-regression';
 
 let plum = (grunt) => {
 
-  grunt.registerMultiTask('plum', 'Grunt task runner to build and run regressions tests against plum stylesheets.', function () {
+  grunt.registerMultiTask('plum', 'Grunt plugin to build and run visual regression tests against plum stylesheets.', function () {
     let done     = this.async();
     let options  = this.options();
     let fixtures = `${options.results}/fixtures`;

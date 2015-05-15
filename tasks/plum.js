@@ -26,7 +26,7 @@ var _plumRegression2 = _interopRequireDefault(_plumRegression);
 
 var plum = function plum(grunt) {
 
-  grunt.registerMultiTask('plum', 'Grunt task runner to build and run regressions tests against plum stylesheets.', function () {
+  grunt.registerMultiTask('plum', 'Grunt plugin to build and run visual regression tests against plum stylesheets.', function () {
     var done = this.async();
     var options = this.options();
     var fixtures = '' + options.results + '/fixtures';
