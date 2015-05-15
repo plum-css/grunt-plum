@@ -37,7 +37,7 @@ grunt.initConfig({
 })
 ```
 
-### To test only a specific test(s) you can pass a comma `,` seperated list of paths to the the `--tests` argument via the grunt CLI.
+To test only a specific test(s) you can pass a comma `,` seperated list of paths to the the `--tests` argument via the grunt CLI.
 
 ```shell
 # run the modules tests.
