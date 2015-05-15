@@ -11,32 +11,47 @@ import regression from 'plum-regression';
 let plum = (grunt) => {
 
   grunt.registerMultiTask('plum', 'Grunt task runner to build and run regressions tests against plum stylesheets.', function () {
-    let src  = this.files[0].src;
-    let dest = this.files[0].dest;
-    let done = this.async();
-    let fixtureOptions = {
-      files       : src,
-      destination : `${dest}/fixtures`
-    };
-    let regressionOptions = {
-      stylesheets : 'css',
-      tests       : src,
-      fixtures    : `${dest}/fixtures`,
-      results     : `${dest}/results`,
-      failures    : `${dest}/failures`
-    };
+    let done     = this.async();
+    let options  = this.options();
+    let fixtures = `${options.results}/fixtures`;
+    let failures = `${options.results}/failures`;
+    let results  = `${options.results}/results`;
+    let tests    = (() => {
+      if (grunt.option('tests')) {
+        return grunt.option('tests').split(',');
+      }
+      return options.tests;
+    })().map(test => `${options.stylesheets}/${test}`);
 
-    grunt.file.mkdir(regressionOptions.fixtures);
 
-    fixture(fixtureOptions, (err, response) => {
-      if (err) grunt.fail.error(err);
+    if (grunt.file.exists(options.results)) {
+      grunt.file.delete(options.results);
+    }
 
-      regression(regressionOptions, (err, resp) => {
-        if (err) grunt.fail.error(err);
+    if (!grunt.file.exists(fixtures)) {
+      grunt.file.mkdir(fixtures);
+    }
 
-        grunt.file.delete(dest);
-        grunt.log.ok(resp);
-        done();
+    fixture({ files: tests, destination: fixtures }, (err, response) => {
+      if (err) {
+        return grunt.fail.error(err);
+      }
+
+      regression({
+        stylesheets: options.stylesheets,
+        tests: tests,
+        fixtures: fixtures,
+        results: results,
+        failures: failures
+        }, (err, resp) => {
+          if (err) {
+            return grunt.fail.error(err);
+          }
+
+          grunt.file.delete(fixtures);
+          grunt.file.delete(results);
+          grunt.log.ok(resp);
+          done();
       });
     });
 

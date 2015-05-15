@@ -27,24 +27,34 @@ In your project's Gruntfile, add a section named `plum` to the data object passe
 grunt.initConfig({
   plum: {
     test: {
-      files: [
-        {
-          src: ['paths/to/your/test/files'],
-          dest: 'path/where/your/fixtures/and/results/should/be/saved'
-        }
-      ]
+      options: {
+        stylesheets: 'path/to/your/plum/stylesheets/',
+        tests: ['paths/to/your/test/files'],
+        results: 'path/where/your/fixtures/and/results/should/be/saved'
+      }
     }
   }
 })
 ```
 
+### To test only a specific test(s) you can pass a comma `,` seperated list of paths to the the `--tests` argument via the grunt CLI.
+
+```shell
+# run the modules tests.
+grunt plum:test --tests=modules
+
+# run only the button modules tests.
+grunt plum:test --tests=modules/button
+```
+
 
 ## Options
 
-Name       | Type     | Argument     | Description
------------|----------|--------------|--------------|------------
-files.src  | `array`  | `<required>` | the path(s) where your test files are located.
-files.dest | `string` | `<required>` | the path to save your fixtures and results to.
+Name                | Type     | Argument     | Description
+--------------------|----------|--------------|--------------
+options.stylesheets | `string` | `<required>` | the path to your plum stylesheets.
+options.tests       | `array`  | `<required>` | files and/or directories containing the tests to run.
+options.results     | `string` | `<required>` | the path to save the test results to.
 
 
 ## Developing
