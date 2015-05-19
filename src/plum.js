@@ -4,7 +4,6 @@
  * Copyright (c) 2015 Jason Bellamy
  * Licensed under the MIT license.
  */
-import path from 'path';
 import fixture from 'plum-fixture';
 import regression from 'plum-regression';
 

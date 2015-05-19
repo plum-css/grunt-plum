@@ -12,10 +12,6 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
 var _plumFixture = require('plum-fixture');
 
 var _plumFixture2 = _interopRequireDefault(_plumFixture);
