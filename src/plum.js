@@ -22,7 +22,7 @@ let plum = (grunt) => {
       }
       return options.tests;
     })().map(test => `${base}/${test}`);
-    let css = grunt.file.expand(options.css).map(function(path) {
+    let stylesheets = grunt.file.expand(options.stylesheets).map(function(path) {
       return { url: path };
     });
 
@@ -36,7 +36,7 @@ let plum = (grunt) => {
     }
 
     fixture({
-      css: css,
+      stylesheets: stylesheets,
       files: tests,
       destination: fixtures
     }, (err, response) => {

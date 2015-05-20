@@ -37,7 +37,7 @@ var plum = function plum(grunt) {
     })().map(function (test) {
       return '' + base + '/' + test;
     });
-    var css = grunt.file.expand(options.css).map(function (path) {
+    var stylesheets = grunt.file.expand(options.stylesheets).map(function (path) {
       return { url: path };
     });
 
@@ -50,7 +50,7 @@ var plum = function plum(grunt) {
     }
 
     (0, _plumFixture2['default'])({
-      css: css,
+      stylesheets: stylesheets,
       files: tests,
       destination: fixtures
     }, function (err, response) {
