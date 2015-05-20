@@ -28,13 +28,17 @@ var plum = function plum(grunt) {
     var fixtures = '' + options.results + '/fixtures';
     var failures = '' + options.results + '/failures';
     var results = '' + options.results + '/results';
+    var base = options.base;
     var tests = (function () {
       if (grunt.option('tests')) {
         return grunt.option('tests').split(',');
       }
       return options.tests;
     })().map(function (test) {
-      return '' + options.stylesheets + '/' + test;
+      return '' + base + '/' + test;
+    });
+    var css = grunt.file.expand(options.css).map(function (path) {
+      return { url: path };
     });
 
     if (grunt.file.exists(options.results)) {
@@ -45,13 +49,17 @@ var plum = function plum(grunt) {
       grunt.file.mkdir(fixtures);
     }
 
-    (0, _plumFixture2['default'])({ files: tests, destination: fixtures }, function (err, response) {
+    (0, _plumFixture2['default'])({
+      css: css,
+      files: tests,
+      destination: fixtures
+    }, function (err, response) {
       if (err) {
         return grunt.fail.error(err);
       }
 
       (0, _plumRegression2['default'])({
-        stylesheets: options.stylesheets,
+        stylesheets: base,
         tests: tests,
         fixtures: fixtures,
         results: results,

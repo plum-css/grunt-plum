@@ -28,7 +28,8 @@ grunt.initConfig({
   plum: {
     test: {
       options: {
-        stylesheets: 'path/to/your/plum/stylesheets/',
+        base: 'path/to/your/plum/stylesheets/',
+        css: ['path/or/glob/to/your/compiled/css'],
         tests: ['paths/to/your/test/files'],
         results: 'path/where/your/fixtures/and/results/should/be/saved'
       }
@@ -50,11 +51,12 @@ grunt plum:test --tests=modules/button
 
 ## Options
 
-Name                | Type     | Argument     | Description
---------------------|----------|--------------|--------------
-options.stylesheets | `string` | `<required>` | the path to your plum stylesheets.
-options.tests       | `array`  | `<required>` | files and/or directories containing the tests to run.
-options.results     | `string` | `<required>` | the path to save the test results to.
+Name            | Type     | Argument     | Description
+----------------|----------|--------------|--------------
+options.base    | `string` | `<required>` | the base path of your plum stylesheets.
+options.css     | `array`  | `<required>` | the path or globbing pattern to your compiled css.
+options.tests   | `array`  | `<required>` | files and/or directories containing the tests to run.
+options.results | `string` | `<required>` | the path to save the test results to.
 
 
 ## Developing
