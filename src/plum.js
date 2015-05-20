@@ -15,12 +15,16 @@ let plum = (grunt) => {
     let fixtures = `${options.results}/fixtures`;
     let failures = `${options.results}/failures`;
     let results  = `${options.results}/results`;
+    let base     = options.base;
     let tests    = (() => {
       if (grunt.option('tests')) {
         return grunt.option('tests').split(',');
       }
       return options.tests;
-    })().map(test => `${options.stylesheets}/${test}`);
+    })().map(test => `${base}/${test}`);
+    let stylesheets = grunt.file.expand(options.stylesheets).map(function(path) {
+      return { url: path };
+    });
 
 
     if (grunt.file.exists(options.results)) {
@@ -31,13 +35,17 @@ let plum = (grunt) => {
       grunt.file.mkdir(fixtures);
     }
 
-    fixture({ files: tests, destination: fixtures }, (err, response) => {
+    fixture({
+      stylesheets: stylesheets,
+      files: tests,
+      destination: fixtures
+    }, (err, response) => {
       if (err) {
         return grunt.fail.error(err);
       }
 
       regression({
-        stylesheets: options.stylesheets,
+        stylesheets: base,
         tests: tests,
         fixtures: fixtures,
         results: results,
