@@ -25,6 +25,7 @@ var plum = function plum(grunt) {
   grunt.registerMultiTask('plum', 'Grunt plugin to build and run visual regression tests against plum stylesheets.', function () {
     var done = this.async();
     var options = this.options();
+    var stylesheets = grunt.file.expand(options.stylesheets);
     var fixtures = '' + options.results + '/fixtures';
     var failures = '' + options.results + '/failures';
     var results = '' + options.results + '/results';
@@ -36,9 +37,6 @@ var plum = function plum(grunt) {
       return options.tests;
     })().map(function (test) {
       return '' + base + '/' + test;
-    });
-    var stylesheets = grunt.file.expand(options.stylesheets).map(function (path) {
-      return { url: path };
     });
 
     if (grunt.file.exists(options.results)) {
