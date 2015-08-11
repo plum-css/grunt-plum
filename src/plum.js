@@ -10,22 +10,19 @@ import regression from 'plum-regression';
 let plum = (grunt) => {
 
   grunt.registerMultiTask('plum', 'Grunt plugin to build and run visual regression tests against plum stylesheets.', function () {
-    let done     = this.async();
-    let options  = this.options();
-    let fixtures = `${options.results}/fixtures`;
-    let failures = `${options.results}/failures`;
-    let results  = `${options.results}/results`;
-    let base     = options.base;
-    let tests    = (() => {
+    let done        = this.async();
+    let options     = this.options();
+    let stylesheets = grunt.file.expand(options.stylesheets);
+    let fixtures    = `${options.results}/fixtures`;
+    let failures    = `${options.results}/failures`;
+    let results     = `${options.results}/results`;
+    let base        = options.base;
+    let tests       = (() => {
       if (grunt.option('tests')) {
         return grunt.option('tests').split(',');
       }
       return options.tests;
     })().map(test => `${base}/${test}`);
-    let stylesheets = grunt.file.expand(options.stylesheets).map(function(path) {
-      return { url: path };
-    });
-
 
     if (grunt.file.exists(options.results)) {
       grunt.file.delete(options.results);
