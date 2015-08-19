@@ -28,35 +28,26 @@ grunt.initConfig({
   plum: {
     test: {
       options: {
-        base: 'path/to/your/plum/stylesheets/',
-        stylesheets: ['path/or/glob/to/your/compiled/stylesheets'],
-        tests: ['paths/to/your/test/files'],
-        results: 'path/where/your/fixtures/and/results/should/be/saved'
+        src: 'path/to/plum/directory',
+        dest: 'path/to/save/results/to',
+        stylesheets: ['path/to/compiled/stylesheets']
       }
     }
   }
 })
 ```
 
-To test only a specific test(s) you can pass a comma `,` seperated list of paths to the the `--tests` argument via the grunt CLI.
-
 ```shell
-# run the modules tests.
-grunt plum:test --tests=modules
-
-# run only the button modules tests.
-grunt plum:test --tests=modules/button
+grunt plum:test
 ```
-
 
 ## Options
 
-Name                | Type     | Argument     | Description
---------------------|----------|--------------|--------------
-options.base        | `string` | `<required>` | the base path of your plum files.
-options.stylesheets | `array`  | `<required>` | the path or globbing pattern to your compiled stylesheets.
-options.tests       | `array`  | `<required>` | files and/or directories containing the tests to run.
-options.results     | `string` | `<required>` | the path to save the test results to.
+Name                | Type            | Argument     | Description
+--------------------|-----------------|--------------|------------
+options.src         | `string`        | `<required>` | the src path to your plum stylesheets.
+options.dest        | `string`        | `<required>` | the path to save the test results to.
+options.stylesheets | `array|string`  | `<required>` | the path to your compiled css stylesheets.
 
 
 ## Developing

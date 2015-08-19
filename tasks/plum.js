@@ -22,14 +22,13 @@ var plum = function plum(grunt) {
     var done = this.async();
     var options = this.options();
     var config = {
-      base: options.base,
-      stylesheets: grunt.file.expand(options.stylesheets),
-      tests: grunt.option('tests') ? grunt.option('tests').split(',') : options.tests,
-      results: options.results
+      src: options.src,
+      dest: options.dest,
+      stylesheets: grunt.file.expand(options.stylesheets)
     };
 
-    if (!grunt.file.exists(options.results)) {
-      grunt.file.mkdir(options.results);
+    if (!grunt.file.exists(options.dest)) {
+      grunt.file.mkdir(options.dest);
     }
 
     (0, _plumTest2['default'])(config, function (err, res) {
