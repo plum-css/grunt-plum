@@ -5,10 +5,9 @@ module.exports = function(grunt) {
     plum: {
       test: {
         options: {
-          base: 'test/fixtures',
-          stylesheets: ['compiled.css'],
-          tests: ['test/fixtures/units'],
-          results: 'test/tmp'
+          src: 'test/fixtures',
+          dest: 'test/tmp',
+          stylesheets: ['compiled.css']
         }
       }
     }

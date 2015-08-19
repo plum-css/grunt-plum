@@ -12,14 +12,13 @@ const plum = (grunt) => {
     const done        = this.async();
     const options     = this.options();
     const config      = {
-      base: options.base,
+      src: options.src,
+      dest: options.dest,
       stylesheets: grunt.file.expand(options.stylesheets),
-      tests: grunt.option('tests') ? grunt.option('tests').split(',') : options.tests,
-      results: options.results
     };
 
-    if (!grunt.file.exists(options.results)) {
-      grunt.file.mkdir(options.results);
+    if (!grunt.file.exists(options.dest)) {
+      grunt.file.mkdir(options.dest);
     }
 
     test(config, (err, res) => {
