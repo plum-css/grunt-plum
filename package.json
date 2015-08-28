@@ -1,6 +1,6 @@
 {
   "name": "grunt-plum",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Grunt plugin to build and run visual regression tests against plum stylesheets.",
   "author": {
     "name": "Jason Bellamy",
@@ -20,13 +20,12 @@
     "regression",
     "testing"
   ],
-  "files": "tasks",
   "engines": {
     "node": ">= 0.10.0"
   },
   "license": "MIT",
   "dependencies": {
-    "plum-test": "~0.2.0"
+    "plum-test": "~0.3.0"
   },
   "devDependencies": {
     "babel": "^5.2.15",
@@ -38,9 +37,11 @@
     "should": "3.1.2"
   },
   "scripts": {
-    "clean": "rm -rf tasks",
-    "build-dist": "babel -d tasks src",
-    "build": "npm run clean && npm run build-dist",
-    "test": "grunt && mocha --compilers js:babel/register"
+    "build": "babel -d tasks src",
+    "clean": "rm -rf tasks && mkdir tasks",
+    "watch": "babel -w -d tasks src",
+    "test": "grunt && mocha --compilers js:babel/register",
+    "preversion": "npm run clean && npm run build",
+    "postpublish": "git push && git push --tag"
   }
 }

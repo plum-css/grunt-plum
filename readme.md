@@ -37,8 +37,20 @@ grunt.initConfig({
 })
 ```
 
-```shell
+### CLI
+
+```bash
 grunt plum:test
+```
+
+To run only a specific test(s) you can pass a comma `,` seperated list of paths to the the `--tests`.
+
+```bash
+# run all the modules tests.
+grunt plum:test --tests=modules
+
+# run only the button modules tests.
+grunt plum:test --tests=modules/button
 ```
 
 ## Options
@@ -48,6 +60,7 @@ Name                | Type            | Argument     | Description
 options.src         | `string`        | `<required>` | the src path to your plum stylesheets.
 options.dest        | `string`        | `<required>` | the path to save the test results to.
 options.stylesheets | `array|string`  | `<required>` | the path to your compiled css stylesheets.
+options.tests       | `array|string`  | `<optional>` | the paths to the tests to be run.
 
 
 ## Developing

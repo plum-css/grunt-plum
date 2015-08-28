@@ -24,7 +24,13 @@ var plum = function plum(grunt) {
     var config = {
       src: options.src,
       dest: options.dest,
-      stylesheets: grunt.file.expand(options.stylesheets)
+      stylesheets: grunt.file.expand(options.stylesheets),
+      tests: (function () {
+        if (grunt.option('tests')) {
+          return grunt.option('tests').split(',');
+        }
+        return options.tests ? grunt.file.expand(options.tests) : null;
+      })()
     };
 
     if (!grunt.file.exists(options.dest)) {
