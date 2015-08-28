@@ -40,7 +40,7 @@
     "build": "babel -d tasks src",
     "clean": "rm -rf tasks && mkdir tasks",
     "watch": "babel -w -d tasks src",
-    "test": "mocha --compilers js:babel/register",
+    "test": "grunt && mocha --compilers js:babel/register",
     "preversion": "npm run clean && npm run build",
     "postpublish": "git push && git push --tag"
   }
