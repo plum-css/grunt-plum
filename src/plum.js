@@ -15,6 +15,12 @@ const plum = (grunt) => {
       src: options.src,
       dest: options.dest,
       stylesheets: grunt.file.expand(options.stylesheets),
+      tests: (() => {
+        if (grunt.option('tests')) {
+          return grunt.option('tests').split(',');
+        }
+        return options.tests ? grunt.file.expand(options.tests) : null;
+      })()
     };
 
     if (!grunt.file.exists(options.dest)) {
